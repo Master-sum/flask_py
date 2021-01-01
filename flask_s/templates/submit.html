@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import form_field %}
+
+{% block content %}
+<h1>hello</h1>
+<form method="post">
+    {{ form.csrf_token }}
+    {{ form.title.label }}<br>
+    {{ form.title }}<br>
+    {{ form.body.label }}<br>
+    {{ form.body }}<br>
+    {{ form.submit }}<br>
+
+</form>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+{% endblock %}
+
+{% block script %}
+{{ ckeditor.load() }}
+{{ ckeditor.config(name='body') }}
+
+{% endblock %}
+
+<script src="//cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
